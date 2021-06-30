@@ -1,3 +1,6 @@
 *.o
-f_print
 *.mod
+*.ii
+*.s
+f_print
+call_zaxpy
