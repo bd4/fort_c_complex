@@ -25,5 +25,6 @@ extern "C" void gpublas_zaxpy(int n, const std::complex<double>* a,
                              const std::complex<double>* x, int incx,
                              std::complex<double>* y, int incy)
 {
+  printf("pa from Fortran %p\n", a);
   gtblas_zaxpy(g_handle, n, *a, x, incx, y, incy);
 }

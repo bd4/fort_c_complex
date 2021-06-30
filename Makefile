@@ -2,11 +2,12 @@
 all: call_zaxpy f_print
 
 FC=gfortran-9
-CC=g++-9
-CPP=g++-9
+#CPP=g++-9
+CC=g++
+CPP=hipcc
 
-FFLAGS=-g -save-temps
-CFLAGS=-O2 -std=c++14 -save-temps
+FFLAGS=-g -std=f2008 -fbounds-check -Wall -ffree-line-length-none -save-temps
+CFLAGS=-g -std=gnu++14 -save-temps -fPIE
 CPPFLAGS=$(CFLAGS)
 
 call_zaxpy: call_zaxpy.f90 gpublas_interface.o fake_blas.o
