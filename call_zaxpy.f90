@@ -4,26 +4,23 @@ module test_fake_blas
 
   contains
     subroutine test_gpublas_zaxpy()
-      complex, dimension(:), pointer :: dx, dy
+      complex, dimension(:), pointer :: x, y
       complex :: a
-      complex, dimension(10) :: x, y, res
-      integer(C_INT) :: incx, incy
-      integer :: i
+      integer(C_INT) :: n, incx, incy
+      type(C_PTR) :: cptr_x, cptr_y
+
+      n = 10
+
+      cptr_x = malloc(n*c_sizeof(C_DOUBLE_COMPLEX))
+      call c_f_pointer(cptr_x, x, [n])
+      cptr_y = malloc(n*c_sizeof(C_DOUBLE_COMPLEX))
+      call c_f_pointer(cptr_y, y, [n])
 
       incx = 1; incy = 1
-      a = (2, 0)
 
-      do i = 1,10
-        x(i) = cmplx(i, 0)
-        y(i) = cmplx(0, i)
-      end do
-
-      res = a * x + y
+      a = cmplx(2, 0)
 
       call gpublas_zaxpy(size(x), a, x, incx, y, incy)
-
-      print *, res
-      print *, y
     end subroutine test_gpublas_zaxpy
 end module test_fake_blas
 

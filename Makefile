@@ -32,4 +32,4 @@ cpp_complex_add.o: cpp_complex_add.cxx
 
 .PHONY: clean
 clean:
-	rm -rf *.o *.mod f_print call_xaxpy
+	rm -rf *.o *.s *.d *.i *.ii *.bc *.cui *.hipfb *.out *.out.resolution.txt *.mod f_print call_zaxpy
