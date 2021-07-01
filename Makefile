@@ -1,5 +1,5 @@
 .PHONY: all
-all: call_zaxpy f_print
+all: call_zaxpy print_complex_align
 
 FC=gfortran
 #CPP=g++-9
@@ -11,6 +11,9 @@ CFLAGS=-g -std=gnu++14 -save-temps -fPIE
 CPPFLAGS=$(CFLAGS)
 ROCM_PATH ?= /opt/rocm
 HIPFLAGS=$(CFLAGS) --amdgpu-target=gfx906,gfx908 -isystem $(ROCM_PATH)/rocprim/include -isystem $(ROCM_PATH)/rocthrust/include -DUSE_THRUST_COMPLEX
+
+print_complex_align: print_complex_align.cxx
+	$(CPP) $(CPPFLAGS) $< -o $@
 
 call_zaxpy: call_zaxpy.f90 gpublas_interface.o fake_blas.o
 	$(FC) $(FFLAGS) -fdefault-real-8 -fdefault-double-8 $^ -o $@
