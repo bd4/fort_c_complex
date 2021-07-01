@@ -6,7 +6,7 @@ module test_fake_blas
     subroutine test_gpublas_zaxpy()
       complex, dimension(:), pointer :: x, y
       complex :: a
-      integer(C_INT) :: n, incx, incy
+      integer(C_INT) :: n
       type(C_PTR) :: cptr_x, cptr_y
 
       n = 10
@@ -16,11 +16,9 @@ module test_fake_blas
       cptr_y = malloc(n*c_sizeof(C_DOUBLE_COMPLEX))
       call c_f_pointer(cptr_y, y, [n])
 
-      incx = 1; incy = 1
-
       a = cmplx(2, 0)
 
-      call gpublas_zaxpy(size(x), a, x, incx, y, incy)
+      call gpublas_zaxpy(size(x), a, x, 1, y, 1)
     end subroutine test_gpublas_zaxpy
 end module test_fake_blas
 
